@@ -3,6 +3,7 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
-bin/isolate/lock
+lib/hoe/isolate_lock.rb
 lib/isolate/lock.rb
-test/test_isolate/lock.rb
+lib/isolate/lock/rake.rb
+test/isolate/test_lock.rb
