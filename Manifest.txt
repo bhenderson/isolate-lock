@@ -1,0 +1,8 @@
+.autotest
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/isolate/lock
+lib/isolate/lock.rb
+test/test_isolate/lock.rb
