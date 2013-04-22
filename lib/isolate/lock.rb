@@ -25,8 +25,14 @@ class Isolate::Lock
       puts "end" if last_env and last_env != env
 
       puts "env #{env.inspect} do" if last_env != env
+      spec = entry.specification
+      space = env ? '  ' : ''
 
-      gem entry.specification, (env ? '  ' : '')
+      if spec
+        gem spec, space
+      else
+        puts "#{space}# #{entry.name} unavailable. Make sure to set Isolate.env"
+      end
 
       last_env = env
     end
