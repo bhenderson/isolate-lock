@@ -11,6 +11,7 @@ their dependecy graph might be too loose for your liking.
 
 == FEATURES/PROBLEMS:
 
+* needs tests :(
 * let me know what you think!
 
 == SYNOPSIS:

@@ -6,4 +6,5 @@ Rakefile
 lib/hoe/isolate_lock.rb
 lib/isolate/lock.rb
 lib/isolate/lock/rake.rb
+lib/isolate/locker.rb
 test/isolate/test_lock.rb
