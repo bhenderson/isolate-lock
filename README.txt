@@ -1,26 +1,42 @@
 = isolate-lock
 
-* FIX (url)
+* https://github.com/bhenderson/isolate-lock
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Plugin for Isolate to lock gem dependencies. The problem that I'm trying to
+solve is that while it's standard practice to be specific about gem
+dependencies in your Isolate file, those gems might depend on other gems and
+their dependecy graph might be too loose for your liking.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* let me know what you think!
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+Require the gem before isolate.
+  require 'isolate/lock'
+  require 'isolate/now'
+
+Make it optional so only your dev box needs the gem and not your server
+  begin
+    require 'isolate/lock'
+  rescue LoadError
+    # lock file will not be updated.
+  end
+  require 'isolate/now'
+
+Then add one line at the bottom of your Isolate file.
+  load 'Isolate.lock' if test ?e, 'Isolate.lock'
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* isolate
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* gem install isolate-lock
 
 == DEVELOPERS:
 
