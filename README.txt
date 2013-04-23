@@ -29,7 +29,7 @@ Make it optional so only your dev box needs the gem and not your server
   require 'isolate/now'
 
 Then add one line at the bottom of your Isolate file.
-  load 'Isolate.lock' if test ?e, 'Isolate.lock'
+  load 'Isolate.lock'
 
 == REQUIREMENTS:
 

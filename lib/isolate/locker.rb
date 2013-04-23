@@ -11,7 +11,23 @@ class Isolate::Locker
     @lock_file = 'Isolate.lock'
     @sandbox = sandbox
 
-    write_file # truncate
+    File.open @lock_file, 'a' do end # touch
+  end
+
+  def footer
+    <<-"EOF"
+
+# vim: ft=ruby
+    EOF
+  end
+
+  def header
+    <<-"EOH"
+############################################
+# DO NOT EDIT. This file was auto generated.
+############################################
+
+    EOH
   end
 
   def generate
@@ -25,8 +41,10 @@ class Isolate::Locker
       end
     end
 
+    puts header
+
     groups.sort_by{|e, _| e.to_s}.each do |env, entries|
-      puts "env #{env.inspect} do" if env
+      puts nil, "env #{env.inspect} do" if env
 
       entries.sort_by{|e| e.name}.each do |entry|
         spec = entry.specification
@@ -45,17 +63,22 @@ class Isolate::Locker
 
     end
 
+    puts footer
+
     @lines
   end
 
-  def generate!
-    write_file do |f| f.puts generate end
+  def lock!
+    # lock if empty
+    File.open @lock_file, 'w' do |f|
+      f.puts generate
+    end unless test ?s, @lock_file
   end
 
   private
 
   def gem spec, prefix = ''
-    puts "#{prefix}gem '#{spec.name}', '#{spec.version}'"
+    puts "#{prefix}gem '#{spec.name}', '= #{spec.version}'"
     # we don't want development_dependencies because they never get
     # installed.
     spec.runtime_dependencies.sort.each do |dep|
@@ -63,8 +86,8 @@ class Isolate::Locker
     end
   end
 
-  def puts line
-    @lines << line
+  def puts *lines
+    @lines.concat lines
   end
 
   def write_file &block

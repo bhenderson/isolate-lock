@@ -8,5 +8,5 @@ Isolate::Events.watch Isolate::Sandbox, :initializing do |sandbox|
 end
 
 Isolate::Events.watch Isolate::Sandbox, :activated do
-  locker.generate!
+  locker.lock!
 end
